@@ -26,15 +26,10 @@ const e = axios.get(URL)
     })
 
 function tabMaker(e) {
-    // console.log(e)
     let entryPoint = document.querySelector('.topics')
     let tab = document.createElement('div')
     tab.setAttribute('class', 'tab')
     tab.textContent = e
-    // console.log(tab.textContent)
-    // console.log(tab)
     entryPoint.appendChild(tab)
-
-    return entryPoint
 }
 tabMaker(e)

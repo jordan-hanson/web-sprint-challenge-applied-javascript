@@ -20,3 +20,40 @@
 // Add a listener for click events so that when a user clicks on a card, the headline of the article is logged to the console.
 //
 // Use your function to create a card for each of the articles, and append each card to the DOM.
+const URL = 'https://lambda-times-api.herokuapp.com/articles'
+const data = axios.get(URL)
+    .then(res => {
+        console.log(res.data.articles)
+        const firstResponse = res.data.articles.bootstrap
+        console.log(firstResponse)
+        firstResponse.forEach(topic => {
+            return newArticle({ authorName: topic.authorName, headline: topic.headline, authorPhoto: topic.authorPhoto })
+        })
+    }).catch(err => {
+        console.log(err)
+    })
+
+function newArticle(d) {
+    console.log(d)
+    let entryPoint = document.querySelector('.cards-container')
+    let card = document.createElement('div')
+    let headline = document.createElement('div')
+    let author = document.createElement('div')
+    let imgDiv = document.createElement('div')
+    let img = document.createElement('img')
+    let span = document.createElement('span')
+    card.setAttribute('class', 'card')
+    headline.setAttribute('class', 'headline')
+    headline.textContent = d.headline
+    author.setAttribute('class', 'author')
+    imgDiv.setAttribute('class', 'img-container')
+    img.setAttribute('src', d.authorPhoto)
+    span.textContent = `By ${d.authorName}`
+    card.appendChild(headline)
+    card.appendChild(author)
+    author.appendChild(imgDiv)
+    imgDiv.appendChild(img)
+    author.appendChild(span)
+    entryPoint.appendChild(card)
+}
+newArticle(data)
